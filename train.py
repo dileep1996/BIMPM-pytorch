@@ -29,6 +29,7 @@ def train(args, data):
     max_dev_acc, max_test_acc = 0, 0
 
     iterator = data.train_iter
+    print_freq = len(iterator)/2
     for i, batch in tqdm(enumerate(iterator), totaL = len(iterator) , position = 0):
         present_epoch = int(iterator.epoch)
         if present_epoch == args.epoch:
@@ -72,7 +73,7 @@ def train(args, data):
         batch_loss.backward()
         optimizer.step()
 
-        if (i + 1) % args.print_freq == 0:
+        if (i + 1) % print_freq == 0:
             dev_loss, dev_acc = test(model, args, data, mode='dev')
             test_loss, test_acc = test(model, args, data)
             c = (i + 1) // args.print_freq
