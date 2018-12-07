@@ -30,7 +30,7 @@ def train(args, data):
 
     iterator = data.train_iter
     print_freq = len(iterator)/2
-    for i, batch in tqdm(enumerate(iterator), totaL = len(iterator) , position = 0):
+    for i, batch in tqdm(enumerate(iterator), total = len(iterator) , position = 0):
         present_epoch = int(iterator.epoch)
         if present_epoch == args.epoch:
             break
