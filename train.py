@@ -88,14 +88,14 @@ def train(args, data):
 
             if dev_acc > max_dev_acc:
                 max_dev_acc = dev_acc
-                max_test_acc = test_acc
+#                max_test_acc = test_acc
                 best_model = copy.deepcopy(model)
 
             loss = 0
             model.train()
 
     writer.close()
-    print(f'max dev acc: {max_dev_acc:.3f} / max test acc: {max_test_acc:.3f}')
+    print(f'max dev acc: {max_dev_acc:.3f}')
 
     return best_model
 
