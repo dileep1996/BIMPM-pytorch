@@ -77,11 +77,11 @@ def train(args, data):
             test_loss, test_acc = test(model, args, data)
             c = (i + 1) // args.print_freq
 
-            writer.add_scalar('loss/train', loss, c)
-            writer.add_scalar('loss/dev', dev_loss, c)
-            writer.add_scalar('acc/dev', dev_acc, c)
-            writer.add_scalar('loss/test', test_loss, c)
-            writer.add_scalar('acc/test', test_acc, c)
+            #writer.add_scalar('loss/train', loss, c)
+            #writer.add_scalar('loss/dev', dev_loss, c)
+            #writer.add_scalar('acc/dev', dev_acc, c)
+            #writer.add_scalar('loss/test', test_loss, c)
+            #writer.add_scalar('acc/test', test_acc, c)
 
             print(f'train loss: {loss:.3f} / dev loss: {dev_loss:.3f} / test loss: {test_loss:.3f}'
                   f' / dev acc: {dev_acc:.3f} / test acc: {test_acc:.3f}')
