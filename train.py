@@ -11,7 +11,7 @@ from time import gmtime, strftime
 from model.BIMPM import BIMPM
 from model.utils import SNLI, Quora
 from test import test
-
+from tqdm import tqdm
 
 def train(args, data):
     model = BIMPM(args, data)
@@ -29,7 +29,7 @@ def train(args, data):
     max_dev_acc, max_test_acc = 0, 0
 
     iterator = data.train_iter
-    for i, batch in enumerate(iterator):
+    for i, batch in tqdm(enumerate(iterator), totaL = len(iterator) , position = 0):
         present_epoch = int(iterator.epoch)
         if present_epoch == args.epoch:
             break
@@ -68,7 +68,7 @@ def train(args, data):
 
         optimizer.zero_grad()
         batch_loss = criterion(pred, batch.label)
-        loss += batch_loss.data[0]
+        loss += batch_loss.item()
         batch_loss.backward()
         optimizer.step()
 
