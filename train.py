@@ -83,8 +83,8 @@ def train(args, data):
             #writer.add_scalar('loss/test', test_loss, c)
             #writer.add_scalar('acc/test', test_acc, c)
 
-            print(f'train loss: {loss:.3f} / dev loss: {dev_loss:.3f} / test loss: {test_loss:.3f}'
-                  f' / dev acc: {dev_acc:.3f} / test acc: {test_acc:.3f}')
+            print(f'train loss: {loss:.3f} / dev loss: {dev_loss:.3f} '
+                  f' / dev acc: {dev_acc:.3f})
 
             if dev_acc > max_dev_acc:
                 max_dev_acc = dev_acc
