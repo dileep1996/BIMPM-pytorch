@@ -77,20 +77,9 @@ def store_test(model, args, data):
         s1, s2 = getattr(batch, s1), getattr(batch, s2)
         kwargs = {'p': s1, 'h': s2}
 
-        if args.use_char_emb:
-            char_p = Variable(torch.LongTensor(data.characterize(s1)))
-            char_h = Variable(torch.LongTensor(data.characterize(s2)))
-
-            if args.gpu > -1:
-                char_p = char_p.cuda(args.gpu)
-                char_h = char_h.cuda(args.gpu)
-
-            kwargs['char_p'] = char_p
-            kwargs['char_h'] = char_h
-
-        pred = model(**kwargs).cpu()
-        for item in pred:
-            pred_list.append(item)
+        pred = model(**kwargs)
+#        for item in pred:
+#            pred_list.append(item)
         #batch_loss = criterion(pred, batch.label)
     with open('answer_list.txt', 'w') as f:
         for line in pred_list:
