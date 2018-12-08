@@ -64,11 +64,10 @@ def load_model(args, data):
 
 def store_test(model, args, data):
     iterator = iter(data.test_iter)
-    criterion = nn.CrossEntropyLoss()
     model.eval()
     acc, loss, size = 0, 0, 0
     pred_list = []
-    for _, batch in tqdm(enumerate(iterator), position = 0):
+    for _, batch in enumerate(iterator):
         if args.data_type == 'SNLI':
             s1, s2 = 'premise', 'hypothesis'
         else:
@@ -78,9 +77,9 @@ def store_test(model, args, data):
         kwargs = {'p': s1, 'h': s2}
 
         pred = model(**kwargs)
+        print(pred)
 #        for item in pred:
 #            pred_list.append(item)
-        #batch_loss = criterion(pred, batch.label)
     with open('answer_list.txt', 'w') as f:
         for line in pred_list:
             f.write(str(line) + '\n')
