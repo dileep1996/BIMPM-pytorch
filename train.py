@@ -90,7 +90,7 @@ def train(args, data):
                 max_dev_acc = dev_acc
 #                max_test_acc = test_acc
                 best_model = copy.deepcopy(model)
-                torch.save(best_model.state_dict(), f'saved_models/BIBPM_{args.data_type}_{args.model_time}.pt')
+                torch.save(best_model.state_dict(), f'BIBPM_{args.data_type}_{args.model_time}.pt')
 
             loss = 0
             model.train()
