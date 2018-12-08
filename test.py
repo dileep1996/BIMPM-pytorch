@@ -8,6 +8,13 @@ from model.BIMPM import BIMPM
 from model.utils import SNLI, Quora
 from tqdm import tqdm
 
+import math
+def get_prob(l):
+    out_list = []
+    for i in l:
+        prob = math.exp(i[1])/(math.exp(i[0]) + math.exp(i[1]))
+        out_list.append(prob)
+    return out_list
 def test(model, args, data, mode='test'):
     if mode == 'dev':
         iterator = iter(data.dev_iter)
@@ -78,8 +85,9 @@ def store_test(model, args, data):
 
         pred = model(**kwargs)
         print(pred)
-#        for item in pred:
-#            pred_list.append(item)
+        out_pred = get_prob(pred)
+        for item in out_pred:
+            pred_list.append(item)
     with open('answer_list.txt', 'w') as f:
         for line in pred_list:
             f.write(str(line) + '\n')
