@@ -6,7 +6,7 @@ from torch.autograd import Variable
 
 from model.BIMPM import BIMPM
 from model.utils import SNLI, Quora
-
+from tqdm import tqdm
 
 def test(model, args, data, mode='test'):
     if mode == 'dev':
@@ -18,7 +18,7 @@ def test(model, args, data, mode='test'):
     model.eval()
     acc, loss, size = 0, 0, 0
 
-    for batch in iterator:
+    for batch in tqdm(iterator, total = len(iterator), position = 0):
         if args.data_type == 'SNLI':
             s1, s2 = 'premise', 'hypothesis'
         else:
