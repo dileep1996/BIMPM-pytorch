@@ -68,7 +68,7 @@ def store_test(model, args, data):
     model.eval()
     acc, loss, size = 0, 0, 0
     pred_list = []
-    for _, batch in tqdm(enumerate(iterator), total = len(enumerate(iterator)), position = 0):
+    for _, batch in tqdm(enumerate(iterator), position = 0):
         if args.data_type == 'SNLI':
             s1, s2 = 'premise', 'hypothesis'
         else:
