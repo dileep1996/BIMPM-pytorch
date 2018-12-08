@@ -29,7 +29,7 @@ def train(args, data):
     max_dev_acc, max_test_acc = 0, 0
 
     iterator = data.train_iter
-    for i, batch in tqdm(enumerate(iterator), total = len(enumerate(iterator)), position =0 ):
+    for i, batch in tqdm(enumerate(iterator), position =0):
         present_epoch = int(iterator.epoch)
         if present_epoch == args.epoch:
             break
