@@ -103,18 +103,21 @@ if __name__ == '__main__':
     parser.add_argument('--batch-size', default=64, type=int)
     parser.add_argument('--char-dim', default=20, type=int)
     parser.add_argument('--char-hidden-size', default=50, type=int)
-    parser.add_argument('--dropout', default=0.1, type=float)
     parser.add_argument('--data-type', default='SNLI', help='available: SNLI or Quora')
+    parser.add_argument('--dropout', default=0.1, type=float)
     parser.add_argument('--epoch', default=10, type=int)
     parser.add_argument('--gpu', default=0, type=int)
     parser.add_argument('--hidden-size', default=100, type=int)
     parser.add_argument('--learning-rate', default=0.001, type=float)
+    parser.add_argument('--max-sent-len', default=-1, type=int,
+                        help='max length of input sentences model can accept, if -1, it accepts any length')
     parser.add_argument('--num-perspective', default=20, type=int)
-    parser.add_argument('--use-char-emb', default=True, action='store_true')
+    parser.add_argument('--print-freq', default=500, type=int)
+    parser.add_argument('--use-char-emb', default=False, action='store_true')
     parser.add_argument('--word-dim', default=300, type=int)
 
     parser.add_argument('--model-path', required=True)
-
+    
     args = parser.parse_args()
 
     if args.data_type == 'SNLI':
