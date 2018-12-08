@@ -18,7 +18,7 @@ def test(model, args, data, mode='test'):
     model.eval()
     acc, loss, size = 0, 0, 0
 
-    for batch in tqdm(iterator, total = len(iterator), position = 0):
+    for batch in iterator:
         if args.data_type == 'SNLI':
             s1, s2 = 'premise', 'hypothesis'
         else:
@@ -68,7 +68,7 @@ def store_test(model, args, data):
     model.eval()
     acc, loss, size = 0, 0, 0
     pred_list = []
-    for batch in iterator:
+    for _, batch in tqdm(enumerate(iterator), total = len(enumerate(iterator)), position = 0):
         if args.data_type == 'SNLI':
             s1, s2 = 'premise', 'hypothesis'
         else:
