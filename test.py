@@ -52,6 +52,7 @@ def test(model, args, data, mode='test'):
     return loss, acc
 
 
+
 def load_model(args, data):
     model = BIMPM(args, data)
     model.load_state_dict(torch.load(args.model_path))
@@ -61,6 +62,41 @@ def load_model(args, data):
 
     return model
 
+def store_test(model, args, data):
+    iterator = iter(data.test_iter)
+    criterion = nn.CrossEntropyLoss()
+    model.eval()
+    acc, loss, size = 0, 0, 0
+    pred_list = []
+    for batch in iterator:
+        if args.data_type == 'SNLI':
+            s1, s2 = 'premise', 'hypothesis'
+        else:
+            s1, s2 = 'q1', 'q2'
+
+        s1, s2 = getattr(batch, s1), getattr(batch, s2)
+        kwargs = {'p': s1, 'h': s2}
+
+        if args.use_char_emb:
+            char_p = Variable(torch.LongTensor(data.characterize(s1)))
+            char_h = Variable(torch.LongTensor(data.characterize(s2)))
+
+            if args.gpu > -1:
+                char_p = char_p.cuda(args.gpu)
+                char_h = char_h.cuda(args.gpu)
+
+            kwargs['char_p'] = char_p
+            kwargs['char_h'] = char_h
+
+        pred = model(**kwargs)
+        for item in pred:
+            pred_list.append(item)
+        #batch_loss = criterion(pred, batch.label)
+    with open('answer_list.txt', 'w') as f:
+        for line in pred_list:
+            f.write(str(line) + '\n')
+    return pred_list
+    
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -96,6 +132,4 @@ if __name__ == '__main__':
     print('loading model...')
     model = load_model(args, data)
 
-    _, acc = test(model, args, data)
-
-    print(f'test acc: {acc:.3f}')
+    _ = store_test(model, args, data)
