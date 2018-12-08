@@ -123,5 +123,5 @@ if __name__ == '__main__':
 
     print('loading model...')
     model = load_model(args, data)
-
-    _ = store_test(model, args, data)
+    with torch.no_grad():
+        _ = store_test(model, args, data)
