@@ -84,7 +84,6 @@ def store_test(model, args, data):
         kwargs = {'p': s1, 'h': s2}
 
         pred = model(**kwargs)
-        print(pred)
         out_pred = get_prob(pred)
         for item in out_pred:
             pred_list.append(item)
