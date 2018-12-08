@@ -88,7 +88,7 @@ def store_test(model, args, data):
             kwargs['char_p'] = char_p
             kwargs['char_h'] = char_h
 
-        pred = model(**kwargs)
+        pred = model(**kwargs).cpu()
         for item in pred:
             pred_list.append(item)
         #batch_loss = criterion(pred, batch.label)
